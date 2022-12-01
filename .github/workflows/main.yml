@@ -47,3 +47,12 @@ jobs:
       with:
         name: wasi_snapshot_preview1.wasm
         path: target/wasm32-wasi/release/wasi_snapshot_preview1.wasm
+
+    - uses: marvinpinto/action-automatic-releases@latest
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      with:
+	repo_token: ${{ secrets.GITHUB_TOKEN }}
+	automatic_release_tag: latest
+	prerelease: true
+	title: "Latest Build"
+        files: target/wasm32-wasi/release/wasi_snapshot_preview1.wasm
